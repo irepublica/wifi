@@ -1,0 +1,6 @@
+# generate wordlist, redirected to show on terminal, then checked by aircrack-ng
+# save storage, can restore sessions
+crunch [min] [max] | john --wordlist - --stdout --session=upc | aircrack-ng -b [bssid] -w - [.cap]
+
+# restore session and continue
+crunch [min] [max] | john --restore=upc | aircrack-ng -b [bssid] -w - [.cap]
