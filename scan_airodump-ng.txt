@@ -1,0 +1,11 @@
+# detect all 2.4G wifi
+airodump-ng wlan0
+
+# detect 5G only
+airodump-ng --band a wlan0
+
+# detect all 2.4G and 5G
+airodump-ng --band abg wlan0
+
+# record packets of a target wifi and save to .cap
+airodump-ng --bssid [target bssid] --channel [target channel] --write [.cap] wlan0
