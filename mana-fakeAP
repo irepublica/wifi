@@ -1,0 +1,16 @@
+# install
+apt-get install mana-toolkit
+
+# configure
+nano /etc/mana-toolkit/hostapd-mana.conf
+interface = wlan0   # wireless adapter
+ssid = guest wifi   # wifi name to show
+
+nano /usr/share/mana-toolkit/run-mana/start-nat-simple.sh
+upstream = eth0   # internet access
+phy = wlan0       # wireless adapter
+
+# start, try again if some unexpected errors
+bash /usr/share/mana-toolkit/run-mana/start-nat-simple.sh
+
+# wireshark wlan0 to sniff packets
